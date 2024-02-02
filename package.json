@@ -1,0 +1,24 @@
+{
+  "name": "backend-api-express",
+  "version": "1.0.0",
+  "description": "Projeto Node com Express, Prisma, Zod, no padrão de projeto MVC.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "keywords": [
+    "JS",
+    "Node",
+    "Express",
+    "Zod",
+    "API",
+    "JWT",
+    "MVC."
+  ],
+  "author": "Lorena Marques",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
