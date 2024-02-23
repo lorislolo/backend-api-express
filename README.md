@@ -1,3 +1,15 @@
+Inicio do projeto
+
+Para começar nossa projeto usando Node.js e criar o arquivo , no terminal digite 
+npm init
+
+Para criar o arquivo package-lock.json e a pasta node modules no terminal digite
+npm i
+
+
+
+
+
 # Iniciando nas rotas do backend
 ### Criar uma nova pasta chamada routes
 ### - Dentro de routes, criar o arquivo userRouter.js
@@ -110,3 +122,84 @@ import listAll from '../controllers/user/listAll.js'
 ```
 router.get('/', listAll)
 ```
+
+
+
+para conectar o banco de dados com o backend
+crie uma pasta chamada models em nosso src, dentro criar um arquivo chamdo userModel.js com o seguinte codigo:
+
+const getAll = () =>{
+    return '...'
+}
+
+export default {getAll}
+
+dentro de controllers/ listAll.js
+
+import userModel from '../../models/userModel.js'
+
+const listAll = (req, res) => {
+
+    const users = userModel.getAll()
+    res.json({
+        success: 'Usuários listados com sucesso.',
+        users
+    })
+}
+
+export default listAll
+
+
+para instalar o prisma
+npm i prisma -D
+
+para ver a documentação npx prisma
+
+para criar o schema prisma no terminal digite
+npx prisma init
+(note que criou a pasta Prisma e o arquivo schema.prisma)
+
+
+não podemos adicionar ao git o arquivo .env, por receber dados sensiveis, para isso criaremos um arquivo chamado .env-sample com o codigo dentro:
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
+
+no schema.prisma iremos atualizar o datasource db para podermos usar nosso mysql, iremos mudar o provider para que fique desta forma:
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+iremos conectar nosso banco no .env, atualize a url para a url do seu banco, a minha é:
+DATABASE_URL="mysql://root:@localhost:3306/api_node"
+
+para conectar o prisma com o mysql no terminal insira 
+npx prisma db pull
+
+
+para instalar o prisma client 
+npm i @prisma/client
+
+instalar o prisma generate para usar funçoes baseadas nas tabelas que criamos no banco
+
+
+agora vamos testar o prisma em nosso userModel.js vamos importar o prisma
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+
+
+agora vamos criar a função de listar todos, repare no return
+const getAll = () =>{
+    return prisma.user.findMany
+}
+
+vamos tornar esta função assincrona 
+const getAll = async () => {
+    return await  prisma.user.findMany
+}
