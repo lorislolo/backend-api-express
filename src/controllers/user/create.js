@@ -3,6 +3,8 @@ import userModel from "../../models/userModel.js"
 const create = async (req, res) => {
     try{
         const user = req.body
+        const result = userModel.validateUserToCreate(user)
+        console.log(result);
         const newUser = await userModel.create(user)
         return res.json({
             success: `Usuário ${newUser.id} criado com sucesso!`,

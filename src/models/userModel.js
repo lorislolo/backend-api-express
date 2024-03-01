@@ -2,6 +2,18 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+const userSchema = z.object({
+    id: z.number(),
+    name: z.string().min(3).max(200),
+    email: z.string().email().max(500),
+    avatar: z.string().url().max(1000)
+})
+
+const validateUserToCreate = (user) =>{
+    const partialUserSchema= userSchema.partial({id: true})
+    return partialUserSchema.safeParse(user)
+}
+
 const getAll = async () => {
     return await prisma.user.findMany()
 }
@@ -38,4 +50,4 @@ const edit = async (user) => {
 }
 
 
-export default {getAll, getById, create, remove, edit}
+export default {getAll, getById, create, remove, edit, validateUserToCreate}
