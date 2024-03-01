@@ -1,12 +1,12 @@
 import userModel from "../../models/userModel.js"
 
-const getById = async (req, res) => {
+const remove = async (req, res) => {
     try{
         const id = req.params.id
-        const user = await userModel.getById(+id)
+        const result = await userModel.remove(+id)
         res.json({
-            success: `Usuário ${id} encontrado com sucesso!`,
-            user
+            success: `Usuário ${id} apagado com sucesso!`,
+            user: result
         })
     } catch (error) {
         console.log(error)
@@ -16,4 +16,4 @@ const getById = async (req, res) => {
     }
 }
 
-export default getById
+export default remove

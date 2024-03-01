@@ -1,12 +1,12 @@
 import productModel from "../../models/productModel.js"
 
-const getById = async (req, res) => {
+const remove = async (req, res) => {
     try{
         const id = req.params.id
-        const product = await productModel.getById(+id)
+        const result = await productModel.remove(+id)
         res.json({
-            success: `Usuário ${id} encontrado com sucesso!`,
-            product
+            success: `Usuário ${id} apagado com sucesso!`,
+            product: result
         })
     } catch (error) {
         console.log(error)
@@ -16,4 +16,4 @@ const getById = async (req, res) => {
     }
 }
 
-export default getById
+export default remove

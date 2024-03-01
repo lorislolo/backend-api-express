@@ -1,12 +1,19 @@
-import userModel from '../../models/userModel.js'
+import userModel from "../../models/userModel.js"
 
 const create = async (req, res) => {
-    const name = req.body.name
-    const email = req.body.email
-    const avatar = req.body.avatar
-    const data = {name, email, avatar}
-    
-    const user = await userModel.create({data})
-    res.json({message: 'Usuário cadastrado com sucesso.', user})
+    try{
+        const user = req.body
+        const newUser = await userModel.create(user)
+        return res.json({
+            success: `Usuário ${newUser.id} criado com sucesso!`,
+            user: newUser
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            error: 'Opsss erro no servidor, tente novamente!'
+        })
+    }
 }
- export default create
+
+export default create

@@ -1,4 +1,19 @@
-const create = (req, res) => {
-    res.json({message: 'Esta é a rota de POST para criar um usuário'})
+import productModel from "../../models/productModel.js"
+
+const create = async (req, res) => {
+    try{
+        const product = req.body
+        const newProduct = await productModel.create(product)
+        return res.json({
+            success: `Usuário ${newProduct.id} criado com sucesso!`,
+            product: newProduct
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            error: 'Opsss erro no servidor, tente novamente!'
+        })
+    }
 }
- export default create
+
+export default create
