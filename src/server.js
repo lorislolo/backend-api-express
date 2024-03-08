@@ -4,12 +4,14 @@ import {PORT, HOST} from './config.js'
 import userRouter from './routes/userRouter.js'
 import productRouter from './routes/productRouter.js'
 import logger from './middlewares/logger.js'
+import cors from 'cors'
 
 
 const app = express()
 
 app.use(express.json())
 app.use(logger)
+app.use(cors())
 
 app.use('/user', userRouter) 
 app.use('/product', productRouter) 
