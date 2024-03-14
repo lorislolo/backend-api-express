@@ -6,7 +6,6 @@ import productRouter from './routes/productRouter.js'
 import logger from './middlewares/logger.js'
 import cors from 'cors'
 
-
 const app = express()
 
 app.use(express.json())
@@ -21,7 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/produto', (req,res) =>{
-  res.json({message: 'Hello Word POST!'})
+  res.json({message: 'Hello World POST!'})
 })
 
 app.listen(PORT, () => {
